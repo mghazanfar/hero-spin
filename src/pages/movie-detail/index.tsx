@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, CircularProgress } from "@material-ui/core";
 import { useMemo, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { useMovieDetailsQuery } from "../../api/movies/query";
 import {
