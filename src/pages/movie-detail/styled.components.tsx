@@ -24,3 +24,11 @@ export const TextContent = styled.div`
   max-height: 60vh;
   overflow-y: auto;
 `;
+
+export const PaperHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e4e4e4;
+`;

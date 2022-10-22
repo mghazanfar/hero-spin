@@ -1,10 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, CircularProgress } from "@material-ui/core";
-import { useMemo } from "react";
+import { Box, Button, CircularProgress } from "@material-ui/core";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { useMovieDetailsQuery } from "../../api/movies/query";
-import { Content, PaperRoot, Root, TextContent } from "./styled.components";
+import {
+  Content,
+  PaperHeader,
+  PaperRoot,
+  Root,
+  TextContent,
+} from "./styled.components";
 
 export const MovieDetail = () => {
   const { id } = useParams();
@@ -12,17 +18,26 @@ export const MovieDetail = () => {
     () => id || heroes[Math.floor(Math.random() * 10)],
     []
   );
-  const { isLoading, data: movieDetails } = useMovieDetailsQuery(randomMovie);
+  const [spin, setSpin] = useState(randomMovie);
+  const { isLoading, data: movieDetails } = useMovieDetailsQuery(spin);
   debugger;
 
   return (
     <Root>
       <PaperRoot elevation={16}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <>
+        <>
+          <PaperHeader>
             <h2>Movie Details</h2>
+            <Button
+              onClick={() => setSpin(heroes[Math.floor(Math.random() * 10)])}
+              color="primary"
+              variant="contained"
+              disabled={isLoading}
+            >
+              Spin again {isLoading && <CircularProgress />}
+            </Button>
+          </PaperHeader>
+          {!isLoading && (
             <Content>
               <img
                 src={movieDetails.data.Poster}
@@ -40,8 +55,8 @@ export const MovieDetail = () => {
                 )}
               </TextContent>
             </Content>
-          </>
-        )}
+          )}
+        </>
       </PaperRoot>
     </Root>
   );
