@@ -8,6 +8,7 @@ export const MovieListItem = ({
   name,
   year,
   id,
+  rating,
 }: MovieListItemInterface) => {
   return (
     <LinkButton to={`/movie/${id}`} style={{ padding: 0 }}>
@@ -20,7 +21,7 @@ export const MovieListItem = ({
             <Avatar style={{ backgroundColor: red[500] }}>{name[0]}</Avatar>
           }
           title={name}
-          subheader={year}
+          subheader={`${year} (Rating: ${rating})`}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />

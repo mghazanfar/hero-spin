@@ -3,4 +3,5 @@ export interface MovieListItemInterface {
   year: string;
   img: string;
   id: string | number;
+  rating: number;
 }

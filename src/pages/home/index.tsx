@@ -17,8 +17,8 @@ export const Home = () => {
         picks a show for you.`}
       </Description>
       <Buttons>
-        <LinkButton to="/spin" variant="contained" fullWidth color="primary">
-          Spin movies
+        <LinkButton to="/movie" variant="contained" fullWidth color="primary">
+          Pick a movie
         </LinkButton>
         <LinkButton to="/spin" variant="contained" fullWidth color="primary">
           Select hero
