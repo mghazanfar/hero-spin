@@ -1,5 +1,6 @@
-import { Box, CircularProgress, Paper } from "@material-ui/core";
-import { useCallback, useMemo, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, CircularProgress } from "@material-ui/core";
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { useMovieDetailsQuery } from "../../api/movies/query";
