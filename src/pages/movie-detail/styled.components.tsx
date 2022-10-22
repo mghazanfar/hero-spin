@@ -13,6 +13,8 @@ export const PaperRoot = styled(Paper)`
   display: flex;
   flex-direction: column;
   max-width: 75%;
+  min-height: 75vh;
+  min-width: 75vh;
 `;
 
 export const Content = styled.div`
@@ -21,7 +23,7 @@ export const Content = styled.div`
 `;
 
 export const TextContent = styled.div`
-  max-height: 60vh;
+  height: 60vh;
   overflow-y: auto;
 `;
 

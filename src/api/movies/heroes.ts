@@ -2,7 +2,7 @@ export const heroes = [
   "avengers",
   "superman",
   "spider-man",
-  "ironman",
+  "iron-man",
   "black panther",
   "Deadpool",
   "CAPTAIN AMERICA",

@@ -1,9 +1,10 @@
+import { List } from "@material-ui/core";
 import styled from "styled-components";
 
-export const MoviesList = styled.div`
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 32px;
-  margin-top: 3rem;
+export const HeroesList = styled(List)`
+  margin-top: 2rem !important;
+  background-color: white;
+  max-height: 65vh;
+  overflow-y: auto;
+  border-radius: 6px;
 `;

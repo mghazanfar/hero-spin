@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, CircularProgress } from "@material-ui/core";
 import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { useMovieDetailsQuery } from "../../api/movies/query";
 import {
@@ -14,13 +14,13 @@ import {
 
 export const MovieDetail = () => {
   const { id } = useParams();
+  let navigate = useNavigate();
   const randomMovie = useMemo(
     () => id || heroes[Math.floor(Math.random() * 10)],
     []
   );
   const [spin, setSpin] = useState(randomMovie);
   const { isLoading, data: movieDetails } = useMovieDetailsQuery(spin);
-  debugger;
 
   return (
     <Root>
@@ -29,12 +29,17 @@ export const MovieDetail = () => {
           <PaperHeader>
             <h2>Movie Details</h2>
             <Button
-              onClick={() => setSpin(heroes[Math.floor(Math.random() * 10)])}
+              onClick={() =>
+                id
+                  ? navigate("/spin")
+                  : setSpin(heroes[Math.floor(Math.random() * 10)])
+              }
               color="primary"
               variant="contained"
               disabled={isLoading}
             >
-              Spin again {isLoading && <CircularProgress />}
+              {id ? "Go back" : "Spin again"}{" "}
+              {isLoading && <CircularProgress />}
             </Button>
           </PaperHeader>
           {!isLoading && (
