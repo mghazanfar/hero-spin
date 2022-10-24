@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { HeroItem } from "../../components/hero-item";
 import { TitleDescription } from "../home/styled.components";
-import { HeroesList } from "./styled.components";
+import { Header, HeroesList } from "./styled.components";
 
 export const Spin = () => {
   return (
     <TitleDescription>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <Header>
         <Link to="/">
           <IconButton color="secondary">
             <ChevronLeft />
@@ -18,7 +18,7 @@ export const Spin = () => {
         <Typography color="secondary" variant="h5">
           Select Hero
         </Typography>
-      </div>
+      </Header>
       <Grow in={true} mountOnEnter unmountOnExit>
         <HeroesList>
           {heroes.map((hero: any) => (

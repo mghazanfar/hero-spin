@@ -63,3 +63,11 @@ export const PaperHeader = styled.div`
   margin-bottom: 16px;
   border-bottom: 1px solid #e4e4e4;
 `;
+
+export const CardHeader = styled.h2`
+  flex: 1;
+`;
+
+export const ContentSkeleton = styled(Box)`
+  width: 100%;
+`;

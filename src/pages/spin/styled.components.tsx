@@ -8,3 +8,8 @@ export const HeroesList = styled(List)`
   overflow-y: auto;
   border-radius: 6px;
 `;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+`;
