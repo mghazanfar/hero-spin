@@ -21,6 +21,7 @@ export const Gradient = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 `;
 
 export const TitleDescription = styled(Box)`
