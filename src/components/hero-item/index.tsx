@@ -1,8 +1,6 @@
 import {
   Avatar,
-  Divider,
   ListItem,
-  ListItemAvatar,
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";

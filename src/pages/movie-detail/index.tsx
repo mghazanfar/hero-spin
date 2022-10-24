@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, IconButton, Slide } from "@material-ui/core";
 import { ChevronLeft } from "@material-ui/icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { heroes } from "../../api/movies/heroes";
 import { useMovieDetailsQuery } from "../../api/movies/query";
+import { generateRandomNumberWithLimit } from "../../utils/generateRandomNumberWithLimit";
 import {
   Content,
   PaperHeader,
@@ -18,58 +19,83 @@ import {
 
 export const MovieDetail = () => {
   const { id } = useParams();
-  let navigate = useNavigate();
+
   const randomMovie = useMemo(
-    () => id || heroes[Math.floor(Math.random() * 13)],
+    () => id || heroes[generateRandomNumberWithLimit(11)],
     []
   );
+
+  const [randomNumber, setRandomNumber] = useState(0);
+
   const [spin, setSpin] = useState(randomMovie);
+
   const {
     isLoading,
     data: movieDetails,
     isRefetching,
   } = useMovieDetailsQuery(spin);
+
   const movieToShow =
     movieDetails &&
     movieDetails.data.Search[
-      Math.floor(
-        Math.random() *
-          (movieDetails.data.totalResults < 10
-            ? movieDetails.data.totalResults
-            : 10)
+      generateRandomNumberWithLimit(
+        movieDetails.data.totalResults < 10
+          ? movieDetails.data.totalResults
+          : 10
       )
     ];
 
+  const [movie, setMovie] = useState(movieToShow);
+
   const showSkeleton = isLoading || isRefetching;
+
+  useEffect(() => {
+    setMovie(movieToShow);
+  }, [movieDetails, movieToShow]);
+
   debugger;
   return (
     <Root>
       <PaperRoot elevation={16}>
         <>
           <PaperHeader>
-            {!id && (
-              <Link to="/">
-                <IconButton size="small">
-                  <ChevronLeft />
-                </IconButton>
-              </Link>
-            )}
+            <Link to={id ? "/spin" : "/"}>
+              <IconButton size="small">
+                <ChevronLeft />
+              </IconButton>
+            </Link>
+
             <h2 style={{ flex: 1 }}>Movie Details</h2>
-            {
-              <Button
-                onClick={() =>
-                  id
-                    ? navigate("/spin")
-                    : setSpin(heroes[Math.floor(Math.random() * 13)])
+
+            <Button
+              onClick={() => {
+                if (id) {
+                  let randomSelection = generateRandomNumberWithLimit(
+                    movieDetails.data.totalResults < 10
+                      ? movieDetails.data.totalResults
+                      : 10
+                  );
+                  randomSelection =
+                    randomNumber === randomSelection
+                      ? randomSelection < 10
+                        ? randomSelection + 1
+                        : randomSelection === 0
+                        ? 1
+                        : randomSelection - 1
+                      : randomSelection;
+                  setRandomNumber(randomSelection);
+                  setMovie(movieDetails.data.Search[randomSelection]);
+                } else {
+                  setSpin(heroes[generateRandomNumberWithLimit(11)]);
                 }
-                color="primary"
-                variant="contained"
-                disabled={showSkeleton}
-                size="small"
-              >
-                {id ? "Go back" : "Spin"}
-              </Button>
-            }
+              }}
+              color="primary"
+              variant="contained"
+              disabled={showSkeleton}
+              size="small"
+            >
+              {"Spin"}
+            </Button>
           </PaperHeader>
           <Content>
             {showSkeleton ? (
@@ -98,13 +124,14 @@ export const MovieDetail = () => {
                 unmountOnExit
               >
                 <TextContent>
-                  {Object.keys(movieToShow).map((key) =>
-                    key === "Poster" || key === "Ratings" ? null : (
-                      <Box>
-                        <b>{key}</b>
-                        <p>{movieToShow[key]}</p>
-                      </Box>
-                    )
+                  {Object.keys(id ? movie || movieToShow : movieToShow).map(
+                    (key) =>
+                      key === "Poster" || key === "Ratings" ? null : (
+                        <Box>
+                          <b>{key}</b>
+                          <p>{movieToShow[key]}</p>
+                        </Box>
+                      )
                   )}
                 </TextContent>
               </Slide>

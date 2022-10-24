@@ -48,6 +48,7 @@ export const TextContent = styled.div`
 `;
 
 export const Poster = styled.img`
+  max-height: 90%;
   @media (max-width: 768px) {
     height: 300px;
   }

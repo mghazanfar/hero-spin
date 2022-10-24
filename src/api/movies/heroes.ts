@@ -6,10 +6,8 @@ export const heroes = [
   "black panther",
   "Deadpool",
   "CAPTAIN AMERICA",
-  "JESSICA JONES",
   "antman",
   "captain marvel",
   "GUARDIANS OF THE GALAXY",
   "WOLVERINE",
-  "luke cage",
 ];
